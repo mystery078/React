@@ -28,7 +28,7 @@ class App extends Component {
         return (
             // <FirstProject />
             // <DemoForm />
-            <Project2 />
+            <Project2 /> 
         )
     }
 }
