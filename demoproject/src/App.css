@@ -45,3 +45,6 @@
 span.fa{
   margin: 0 5px;
 }
+.sort-selected{
+  background-color: #999;
+}

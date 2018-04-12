@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
-import Demo from './Demo';
-import Header from './components/header';
-import Product from './components/product';
-import FirstProject from './components/FirstProject';
-import DemoForm from './form/DemoForm';
+// import Demo from './Demo';
+// import Header from './components/header';
+// import Product from './components/product';
+// import FirstProject from './components/FirstProject';
+// import DemoForm from './form/DemoForm';
 import Project2 from './project2/Project2';
-
+import demo from './training/demo';
 
 class App extends Component {
     render() {
@@ -29,6 +29,7 @@ class App extends Component {
             // <FirstProject />
             // <DemoForm />
             <Project2 /> 
+            // <DemoRedux /> 
         )
     }
 }
