@@ -1,44 +1,14 @@
 import {createStore} from 'redux';
+import { status, sort } from './actions/index';
+import myReducer from './reducers/index';
 
-var initialState = {
-	status: false,
-	sort: {
-		sortBy: 'name',
-		sortValue: 1
-	}
-}
 
-var myReducer = (state = initialState, action) => {
-	switch (action.type) {
-		case 'TOGGLE_STATUS':
-			state.status = !state.status;
-			break;
-		case 'SORT': 
-			var {by, value} = action.sort;
-			var {status} = state;
-
-			return {
-				status: status,
-				sort: {
-					sortBy: by,
-					sortValue: value
-				}
-			}
-			break;
-		default:
-			
-			break;
-	}
-	
-	return state;
-}
 
 const store = createStore(myReducer);
 console.log('Default :' ,  store.getState());
 
-var action = { type: 'TOGGLE_STATUS'};
 
-store.dispatch(action);
+store.dispatch(status());
 console.log(store.getState());
 
 var actionSort = {
@@ -48,5 +18,8 @@ var actionSort = {
 		value: -1
 	}
 }
-store.dispatch(actionSort);
+store.dispatch(sort({
+	by: 'name',
+	value: -1
+}));
 console.log(store.getState());

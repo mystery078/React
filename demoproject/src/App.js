@@ -6,7 +6,7 @@ import './App.css';
 // import FirstProject from './components/FirstProject';
 // import DemoForm from './form/DemoForm';
 import Project2 from './project2/Project2';
-import demo from './training/demo';
+// import demo from './training/demo';
 
 class App extends Component {
     render() {

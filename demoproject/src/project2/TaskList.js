@@ -1,7 +1,9 @@
 import React from 'react';
 import TaskItem from './TaskItem';
+import { connect } from 'react-redux' ;
 
-export default class TaskList extends React.Component{
+
+class TaskList extends React.Component{
 
 	constructor(props){
 		super(props);
@@ -10,6 +12,8 @@ export default class TaskList extends React.Component{
 			filterSort : -1,
 		}
 	}
+
+
 
 	onFilter = (event) => {
 		var target = event.target;
@@ -26,10 +30,12 @@ export default class TaskList extends React.Component{
 	}
 
 	render(){
-
-		var list = this.props.tasks.map((task, index)=>{
-			return <TaskItem id={task.id} name={task.name} state={task.status} index={index} key={index} onUpdateStatus={this.props.onUpdateStatus} onDeleteTask={this.props.onDeleteTask} onUpdateTask={this.props.onUpdateTask}/>
-		})
+		// console.log(this.props.tasks);
+		// console.log(this.props.tasks);
+		// var list = this.props.tasks.map((task, index)=>{
+		// 	// console.log(task);
+		// 	//return <TaskItem id={task.id} name={task.name} state={task.status} index={index} key={index} onUpdateStatus={this.props.onUpdateStatus} onDeleteTask={this.props.onDeleteTask} onUpdateTask={this.props.onUpdateTask}/>
+		// })
 
 		return(
 			<table className="table table-bordered table-hover">
@@ -57,9 +63,17 @@ export default class TaskList extends React.Component{
 						<td>
 						</td>
 					</tr>
-					{list}
+					
 				</tbody>
 			</table>
 		);
 	}
 }
+const mapStateToProps = (state) => {
+	// console.log(state.tasks.data);
+	return {
+		tasks : state.tasks.data
+	}
+}
+
+export default connect(mapStateToProps, null)(TaskList);
