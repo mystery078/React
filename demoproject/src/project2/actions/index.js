@@ -31,3 +31,31 @@ export const closeForm = () => {
 		type: types.CLOSE_FORM
 	}
 }
+
+export const toggleStatus = (id) => {
+	return {
+		type: types.TOGGLE_STATUS,
+		id
+	}
+}
+
+export const deleteTask = (id) => {
+	return {
+		type: types.DELETE_TASK,
+		id,
+	}
+}
+
+export const editTask = (task) => {
+	return {
+		type: types.EDIT_TASK,
+		task,
+	}
+}
+
+export const updateTask = (task) => {
+	return {
+		type: types.UPDATE_TASK,
+		task,
+	}
+}
