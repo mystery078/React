@@ -84,7 +84,6 @@ class TaskForm extends React.Component{
 
 	clearInput = () => {
 		this.setState ({
-			id: '',
 			name: '',
 			status: false,
 		})
@@ -147,7 +146,8 @@ const mapDispatchToProps = (dispatch, props) => {
 		},
 		onUpdateTask: (task) => {
 			dispatch(action.updateTask(task));
-		}
+		},
+		
 	}
 }
 

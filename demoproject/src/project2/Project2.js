@@ -14,10 +14,10 @@ import * as action from './actions/index';
 
 		this.state = {
 			taskEditing: {},
-			filter: {
-				name: '',
-				status: -1
-			},
+			// filter: {
+			// 	name: '',
+			// 	status: -1
+			// },
 			keyword: '',
 			sortBy: 'name',
 			sortValue: 1
@@ -240,11 +240,11 @@ import * as action from './actions/index';
 						</div>
 						<div className="form-group">
 							<div className="row">
-								<Search onSearch={this.onSearch} />
-								<Sort onSort={this.onSort}/>
+								<Search />
+								<Sort />
 							</div>
 						</div>
-						<TaskList  onFilter={this.onFilter}/>
+						<TaskList />
 					</div>
 				</div>
 			</div>

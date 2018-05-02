@@ -1,5 +1,6 @@
 import React from 'react';
 import TaskItem from './TaskItem';
+import * as action from './actions/index';
 import { connect } from 'react-redux' ;
 
 
@@ -19,11 +20,10 @@ class TaskList extends React.Component{
 		var target = event.target;
 		var name = target.name;
 		var value = target.value;
-			this.props.onFilter(
-				name === 'filterName' ? value : this.state.filterName,
-				name === 'filterSort' ? value : this.state.filterSort,
-			);
-		
+		this.props.onFilter({
+			filterName: (name === 'filterName' ? value : this.state.filterName),
+			filterSort: (name === 'filterSort' ? value : this.state.filterSort),
+		});		
 		this.setState({
 			[name] : value
 		});
@@ -32,9 +32,57 @@ class TaskList extends React.Component{
 	render(){
 		// console.log(this.props.tasks);
 		// console.log(this.props.tasks);
-		var list = this.props.tasks.map((task, index)=>{
+		var {tasks, filterTable, searchTask, sortTask} = this.props;
+		// console.log(sortTask);
+		if (filterTable) {
+			if (filterTable.name) {
+				tasks = tasks.filter((task)=>{
+					// console.log(task);
+					// console.log(task.name);	
+					// console.log(task.name.toLowerCase());
+					// console.log(task.name.indexOf(filter.name)  !== -1);
+					return task.name.toLowerCase().indexOf(filterTable.name)  !== -1;
+				})
+			}
+			tasks = tasks.filter((task) => {
+				if (filterTable.status === -1) {
+					return task;
+				}else{
+					return task.status === (filterTable.status === 0 ? true : false) ;
+				}
+			})
+		}
+		if(searchTask){
+			tasks = tasks.filter((task)=>{
+				return task.name.toLowerCase().indexOf(searchTask)  !== -1;
+			})
+		}
+		if (sortTask.name && sortTask.status) {
+			if (sortTask.name === 'name') {
+				tasks.sort((a,b)=> {
+					if (a.name.toLowerCase() > b.name.toLowerCase()) {
+						return sortTask.status
+					}else if(a.name.toLowerCase() < b.name.toLowerCase()){
+						return -sortTask.status;
+					}else{
+						return 0;
+					}
+				})
+			}else{
+				tasks.sort((a,b)=> {
+					if (a.status > b.status) {
+						return -sortTask.status
+					}else if(a.status < b.status){
+						return sortTask.status;
+					}else{
+						return 0;
+					}
+				})
+			}
+		}
+		var list = tasks.map((task, index)=>{
 			// console.log(task);
-			return <TaskItem task={task} index={index} key={index}  onUpdateTask={this.props.onUpdateTask}/>
+				return <TaskItem task={task} index={index} key={index}  onUpdateTask={this.props.onUpdateTask}/>
 		})
 
 		return(
@@ -70,10 +118,21 @@ class TaskList extends React.Component{
 	}
 }
 const mapStateToProps = (state) => {
-	// console.log(state.tasks.data);
+	// console.log(state);
 	return {
-		tasks : state.tasks
+		tasks : state.tasks,
+		filterTable: state.filterTable,
+		searchTask : state.searchTask,
+		sortTask: state.sortTask
 	}
 }
 
-export default connect(mapStateToProps, null)(TaskList);
+const mapDispatchToProps = (dispatch, props) => {
+	return {
+		onFilter : (filter) => {
+			dispatch(action.filterTable(filter));
+		}
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TaskList);

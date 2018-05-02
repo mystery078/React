@@ -62,8 +62,9 @@ var myReducer = (state = initialState, action) => {
 			return [...state];
 
 		case types.UPDATE_TASK:
+			// console.log(action);
 			index = findIxdex(state, action.task.id);
-			state[index] = newTask;
+			state[index] = action.task;
 			localStorage.setItem('tasks', JSON.stringify(state));
 			return [...state];
 
